@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stable Flow</title>
+  <link rel="icon" type="image/png" href="https://omriavrahami.com/static/images/icon.png" />
+  <link rel="canonical" href="https://omriavrahami.com/stable-flow" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C3ETG3ZXBL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-C3ETG3ZXBL');
+  </script>
+
+  <!-- Meta tags -->
+  <meta name="keywords" content="Stable Flow, Text-Driven Image Editing">
+  <meta property="og:site_name" content="Stable Flow">
+  <meta property="og:url" content="https://omriavrahami.com/stable-flow">
+  <meta property="og:title" content="Stable Flow: Vital Layers for Training-Free Image Editing">
+  <meta name="description"
+    content="A training-free text-driven image editing method that supports various image editing types.">
+  <meta property="og:description"
+    content="A training-free text-driven image editing method that supports various image editing types.">
+
+  <meta property="og:image" content="https://omriavrahami.com/stable-flow/static/images/teaser_1200_630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta property="og:image" content="https://omriavrahami.com/stable-flow/static/images/teaser_300_300.jpg">
+  <meta property="og:image:width" content="300">
+  <meta property="og:image:height" content="300">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" type="text/css" href="./static/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="./static/slick/slick-theme.css" />
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script type="text/javascript" src="./static/slick/slick.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <!-- <script type="text/javascript" src="https://www.maths.nottingham.ac.uk/plp/pmadw/LaTeXMathML.js"></script> -->
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Stable Flow: Vital Layers for Training-Free Image Editing</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://omriavrahami.com">Omri Avrahami</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://orpatashnik.github.io/">Or Patashnik</a><sup>1,3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.ohadf.com/">Ohad Fried</a><sup>4</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=DduS6GQAAAAJ&hl=en">Egor Nemchinov</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://kfiraberman.github.io/">Kfir Aberman</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.cs.huji.ac.il/~danix/">Dani Lischinski</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://danielcohenor.com/">Daniel Cohen-Or</a><sup>1,3</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Snap Research,</span>
+              <span class="author-block"><sup>2</sup>The Hebrew University of Jerusalem,</span>
+              <span class="author-block"><sup>3</sup>Tel Aviv University,</span>
+              <span class="author-block"><sup>4</sup>Reichman University</span>
+            </div>
+
+            <!-- <div>
+              <p style="font-size:23px;font-weight:bold;padding-top: 5px;">SIGGRPAH 2024</p>
+            </div> -->
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="static/paper/StableFlow.pdf" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>PDF</span>
+                  </a>
+                </span>
+
+                <!-- arXiv Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/TODO" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href="https://www.youtube.com/watch?v=VR1sXMgChxM"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+
+                <!-- Code Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://github.com/ZichengDuan/TheChosenOne"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!-- <div id="teaser" class="has-text-centered">
+          <img style="width: 100%;" src="./static/images/teaser_1200_630.png" alt="Blended Latent Diffusion teaser.">
+        </div> -->
+
+        <video id="teaser" autoplay="" controls="" muted="" loop="" playsinline="" height="100%">
+          <source src="static/videos/stable_flow_teaser.mp4" type="video/mp4">
+        </video>
+
+        <h2 class="subtitle has-text-centered">
+          <span class="method-name">Stable Flow</span>: a training-free editing method that is able to perform
+          <i>various</i> types of image editing operations, including non-rigid editing, object addition,
+          object removal, and global scene editing. These different edits are done
+          using the <i>same</i> mechanism.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abstract. -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Diffusion models have revolutionized the field of content synthesis and editing. Recent models have
+              replaced the traditional UNet architecture with the Diffusion Transformer (DiT), and employed
+              flow-matching for improved training and sampling. However, they exhibit limited generation diversity. In
+              this work, we leverage this limitation to perform consistent image edits via selective injection of
+              attention features. The main challenge is that, unlike the UNet-based models, DiT lacks a coarse-to-fine
+              synthesis structure, making it unclear in which layers to perform the injection. Therefore, we propose an
+              automatic method to identify "vital layers" within DiT, crucial for image formation, and demonstrate how
+              these layers facilitate a range of controlled <i>stable</i> edits, from non-rigid modifications to object
+              addition, using the <i>same</i> mechanism. Next, to enable real-image editing, we introduce an improved
+              image inversion method for flow models. Finally, we evaluate our approach through qualitative and
+              quantitative comparisons, along with a user study, and demonstrate its effectiveness across multiple
+              applications.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paper video. -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-12">
+          <div class="content has-text-justified">
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                <h2 class="title is-3">Video</h2>
+                <div class="publication-video">
+                  <iframe src="https://www.youtube.com/embed/VR1sXMgChxM?rel=0&amp;showinfo=0" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Method explanation -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-12">
+          <h2 class="title is-3">Method</h2>
+
+          <div class="content has-text-justified">
+
+            <p>
+              Specifically, we explore image editing via parallel generation, where features from the generative
+              trajectory of the source (reference) image are injected into the trajectory of the edited image.
+              Such an approach has been shown effective in the context of convolutional UNet-based diffusion
+              models, where the roles of the different attention layers are well understood. However, such
+              understanding has not yet emerged for DiT. Specifically, DiT does not exhibit the same fine-coarse-fine
+              structure of the UNet, hence it is not clear which layers should be tampered with to achieve the desired
+              editing behavior.
+            </p>
+
+            <p>
+              To address this gap, we analyze the importance of the different components in the DiT architecture, in
+              order to determine the subset that should be injected while editing. More specifically, we introduce an
+              <i>automatic</i> method for detecting a set of <i>vital layers</i> --- layers that are essential for the
+              image formation --- by measuring the deviation in image content resulting from bypassing each layer. We
+              show that there is no simple relationship between the vitality of a layer and its position in the
+              architecture, i.e, the vital layers are spread across the transformer.
+            </p>
+
+            <div class="container">
+              <img src="./static/images/method.png" />
+              <p style="color:gray">
+                Fig1. (Left) Text-to-image DiT models consist of consecutive layers connected through residual
+                connections. Each layer implements a multimodal diffusion transformer
+                block that processes a combined sequence of text and image embeddings. (Right)
+                For each DiT layer, we performe an ablation by bypassing the layer using its residual connection. Then,
+                we compare the generated result on the ablated model with the complete model using a perceptual
+                similarity metric.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Life Story -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-12">
+          <h2 class="title is-3">Results</h2>
+
+          <!-- Generated -->
+          <div class="content has-text-justified">
+            <p>
+              Our method can be used for various types of image editing:
+            </p>
+          </div>
+          <section class="hero is-light is-small">
+            <div class="hero-body">
+              <div class="container">
+                <div id="results-carousel" class="carousel results-carousel">
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/kids/res0.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/kids/res1.jpg" />
+                    <p class="caption">"Holding hands"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/kids/res2.jpg" />
+                    <p class="caption">"Wearing glasses"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/kids/res3.jpg" />
+                    <p class="caption">"Next to an albino porcupine"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/pyramid/res0.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/pyramid/res1.jpg" />
+                    <p class="caption">"Statue of Liberty"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/pyramid/res2.jpg" />
+                    <p class="caption">"Taj Mahal"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/pyramid/res3.jpg" />
+                    <p class="caption">"Eiffel Tower"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/duck/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/duck/lion.jpg" />
+                    <p class="caption">"A wooden lion"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/duck/toilet.jpg" />
+                    <p class="caption">"A wooden toilet"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/duck/noodles.jpg" />
+                    <p class="caption">"A wooden noodles bowl"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/sushi/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/sushi/hedgehog.jpg" />
+                    <p class="caption">"A hedgehog"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/sushi/shark.jpg" />
+                    <p class="caption">"A shark"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/sushi/bird.jpg" />
+                    <p class="caption">"A bird"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/lion/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/lion/jumping.jpg" />
+                    <p class="caption">"Jumping"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/lion/sitting.jpg" />
+                    <p class="caption">"Sitting"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/lion/stone.jpg" />
+                    <p class="caption">"Putting its paw on a stone"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_animaiton/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_animaiton/porcupine.jpg" />
+                    <p class="caption">"An albino porcupine"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_animaiton/horse.jpg" />
+                    <p class="caption">"A horse"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_animaiton/crow.jpg" />
+                    <p class="caption">"A crow"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/man/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/man/shirt.jpg" />
+                    <p class="caption">"Wearing a red shirt"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/man/jeans.jpg" />
+                    <p class="caption">"Wearing purple jeans"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/man/glasses.jpg" />
+                    <p class="caption">"Wearing glasses"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/bag/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/bag/flux.jpg" />
+                    <p class="caption">"Text 'FLUX' is written on the bag"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/bag/camel.jpg" />
+                    <p class="caption">"A camel is in the background"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/bag/cat.jpg" />
+                    <p class="caption">"A cat inside the bag"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/car/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/car/pink.jpg" />
+                    <p class="caption">"A pink car"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/car/man.jpg" />
+                    <p class="caption">"A man is driving the car"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/car/evening.jpg" />
+                    <p class="caption">"In the evening"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_cat/res0.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_cat/res1.jpg" />
+                    <p class="caption">"Dog is wearing a blue hat"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_cat/res2.jpg" />
+                    <p class="caption">"Cat is wearing yellow glasses"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_cat/res3.jpg" />
+                    <p class="caption">"Casting shadows"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/jumping.jpg" />
+                    <p class="caption">"Jumping"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/sitting.jpg" />
+                    <p class="caption">"Sitting"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/sniffing.jpg" />
+                    <p class="caption">"Sniffing the road"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/otter.jpg" />
+                    <p class="caption">"An otter"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/pig.jpg" />
+                    <p class="caption">"A pig"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/plastic_bag.jpg" />
+                    <p class="caption">"A plastic bag"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/glasses.jpg" />
+                    <p class="caption">"Wearing green glasses"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/hat.jpg" />
+                    <p class="caption">"Wearing a straw hat"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/avocado.jpg" />
+                    <p class="caption">"Next to an avocado"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/wet.jpg" />
+                    <p class="caption">"On a wet road"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/evening.jpg" />
+                    <p class="caption">"During the evening"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/gen/dog_teaser/snow.jpg" />
+                    <p class="caption">"Snowy day"</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Text-related -->
+          <div class="content has-text-justified">
+            <br/>
+            <p>
+              It can also be used for text-related editing tasks:
+            </p>
+          </div>
+          <section class="hero is-light is-small">
+            <div class="hero-body">
+              <div class="container">
+                <div id="results-carousel" class="carousel results-carousel">
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/man/res0.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/man/res1.jpg" />
+                    <p class="caption">"Text `diffusion` in a blue color"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/man/res2.jpg" />
+                    <p class="caption">"Uppercase text `DIFFUSION`"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/man/res3.jpg" />
+                    <p class="caption">"Text 'Flow'"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/neon/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/neon/stable.jpg" />
+                    <p class="caption">A `Stable Flow` neon sign</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/neon/p_vs_np.jpg" />
+                    <p class="caption">A `P = NP` neon sign</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/neon/avocado.jpg" />
+                    <p class="caption">A neon sign of avocados</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ants/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ants/minds.jpg" />
+                    <p class="caption">"Minds"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ants/think.jpg" />
+                    <p class="caption">"Think"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ants/alike.jpg" />
+                    <p class="caption">"Alike"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/trees/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/trees/minds.jpg" />
+                    <p class="caption">"Minds"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/trees/think.jpg" />
+                    <p class="caption">"Think"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/trees/alike.jpg" />
+                    <p class="caption">"Alike"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/beach/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/beach/minds.jpg" />
+                    <p class="caption">"Minds"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/beach/think.jpg" />
+                    <p class="caption">"Think"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/beach/alike.jpg" />
+                    <p class="caption">"Alike"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/underwater/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/underwater/minds.jpg" />
+                    <p class="caption">"Minds"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/underwater/think.jpg" />
+                    <p class="caption">"Think"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/underwater/alike.jpg" />
+                    <p class="caption">"Alike"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ice/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ice/minds.jpg" />
+                    <p class="caption">"Minds"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ice/think.jpg" />
+                    <p class="caption">"Think"</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/text/great/ice/alike.jpg" />
+                    <p class="caption">"Alike"</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Inversion -->
+          <div class="content has-text-justified">
+            <br/>
+            <p>
+              We also offer latent nudging technique to enable real image editing:
+            </p>
+          </div>
+          <section class="hero is-light is-small">
+            <div class="hero-body">
+              <div class="container">
+                <div id="results-carousel" class="carousel results-carousel">
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/bottle/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/bottle/ours.jpg" />
+                    <p class="caption">"A bottle next to an <b>apple</b>. 
+                      There is a <b>heart</b> painting on the wall"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/simba/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/simba/ours.jpg" />
+                    <p class="caption">"A doll with a <b>green body</b> wearing a <b>hat</b>"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/cat/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/cat/ours.jpg" />
+                    <p class="caption">"The cat is <b>yelling</b> and <b>raising</b> its paw"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/rabbit/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/rabbit/ours.jpg" />
+                    <p class="caption">"A rabbit toy <b>sitting</b> and 
+                      <b>wearing pink socks</b> during the late <b>afternoon</b>"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/duck/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/duck/ours.jpg" />
+                    <p class="caption">"A rubber duck next to a <b>purple ball</b> 
+                      during a <b>sunny</b> day"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/dog/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/dog/ours.jpg" />
+                    <p class="caption">"A dog with a small collar <b>lifting</b> 
+                      its paw while wearing <b>red glasses</b>"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/man/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/man/ours.jpg" />
+                    <p class="caption">"A man with a long hair"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/bear/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/bear/ours.jpg" />
+                    <p class="caption">"A photo of a bear with a long hair"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/player/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/player/ours.jpg" />
+                    <p class="caption">"A photo of a man raising his hand"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/sheep/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/sheep/ours.jpg" />
+                    <p class="caption">"A photo of a sheep with a yellow hat"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/cat2/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/cat2/ours.jpg" />
+                    <p class="caption">"A photo of a cat wearing purple sunglasses"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/chicken/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/chicken/inp.jpg" />
+                    <p class="caption">"A photo of a chicken during sunset"</p>
+                  </div>
+
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/elephant/inp.jpg" />
+                    <p class="caption">Input</p>
+                  </div>
+                  <div class="item has-text-centered">
+                    <img src="./static/images/real/elephant/ours.jpg" />
+                    <p class="caption">"A photo of an elephant next to a blue ball"</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Citations -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <p>If you find this research useful, please cite the following:</p>
+
+      <pre><code>@inproceedings{avrahami2024chosen,
+  author = {Avrahami, Omri and Hertz, Amir and Vinker, Yael and Arar, Moab and Fruchter, Shlomi and Fried, Ohad and Cohen-Or, Daniel and Lischinski, Dani},
+  title = {The Chosen One: Consistent Characters in Text-to-Image Diffusion Models},
+  year = {2024},
+  isbn = {9798400705250},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3641519.3657430},
+  doi = {10.1145/3641519.3657430},
+  abstract = {Recent advances in text-to-image generation models have unlocked vast potential for visual creativity. However, the users that use these models struggle with the generation of consistent characters, a crucial aspect for numerous real-world applications such as story visualization, game development, asset design, advertising, and more. Current methods typically rely on multiple pre-existing images of the target character or involve labor-intensive manual processes. In this work, we propose a fully automated solution for consistent character generation, with the sole input being a text prompt. We introduce an iterative procedure that, at each stage, identifies a coherent set of images sharing a similar identity and extracts a more consistent identity from this set. Our quantitative analysis demonstrates that our method strikes a better balance between prompt alignment and identity consistency compared to the baseline methods, and these findings are reinforced by a user study. To conclude, we showcase several practical applications of our approach.},
+  booktitle = {ACM SIGGRAPH 2024 Conference Papers},
+  articleno = {26},
+  numpages = {12},
+  keywords = {Consistent characters generation},
+  location = {Denver, CO, USA},
+  series = {SIGGRAPH '24}
+}</code></pre>
+    </div>
+  </section> -->
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <p>
+          You are free to borrow the of this website, we just ask that you link back to this page in the footer. This
+          page was adapted from <a href="https://github.com/nerfies/nerfies.github.io">this</a> source code.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
